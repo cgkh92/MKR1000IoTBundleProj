@@ -19,8 +19,8 @@
 
 */
 // ArduinoJSON - Version 5.13.5
-#include <ArduinoJson.h>
-#include <ArduinoJson.hpp>
+//#include <ArduinoJson.h>
+//#include <ArduinoJson.hpp>
 
 #include "arduino_secrets.h"
 #include <WiFi101.h>
@@ -46,6 +46,7 @@ void setup() {
   delay(3000);
 
   // attempt to connect to Wifi network:
+  Serial.println("Hello Calum");
   Serial.print("Connecting Wifi: ");
   Serial.println(ssid);
   while (WiFi.begin(ssid, pass) != WL_CONNECTED) {
@@ -56,16 +57,24 @@ void setup() {
   Serial.println("WiFi connected");
 
   bot.begin();
+  Serial.println("Let's Start!");
 }
 
 void loop() {
 
+    Serial.println("About to check for updates");
     message m = bot.getUpdates(); // Read new messages
+    Serial.println("Executed 'bot.getUpdates'");
+//    Serial.println("message " + m);
+//    Serial.println("message text " + m.text);
+//    Serial.println("message sender " + m.sender);
+//    Serial.println("message date " + m.date);
     if ( m.chat_id != 0 ){ // Checks if there are some updates
       Serial.println(m.text);
       bot.sendMessage(m.chat_id, m.text);  // Reply to the same chat with the same text
     } else {
       Serial.println("no new message");
     }
+    Serial.println("End of loop, back around we go...");
 
 }
